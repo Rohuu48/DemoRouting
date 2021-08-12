@@ -1,25 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Link, NavLink, withRouter } from "react-router-dom";
 
-function App() {
+const App = (props) => {
+  const goToDetails = (item) => {
+    props.history.push(`/dashboard/${item}`);
+  };
+  //Navlink provides us an extraprop activeClassName
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>
+        <li>
+          <NavLink to="/">Home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/about">About</NavLink>
+        </li>
+        <li>
+          <NavLink to="/dashboard">Dashboard</NavLink>
+        </li>
+      </ul>
+      <button onClick={goToDetails}>goto</button>
+      {[1, 2, 3, 4].map((item) => {
+        return <button onClick={() => goToDetails(item)}>Push {item}</button>;
+      })}
+      <hr />
     </div>
   );
-}
+};
 
-export default App;
+export default withRouter(App);
